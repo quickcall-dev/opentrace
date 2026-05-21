@@ -1,0 +1,211 @@
+{
+  "sessionId": "test-session-gemini-001",
+  "projectHash": "1e01272821378e1687d1411198dfc72cf42d5b784d1f332393cc02a6e6df260f",
+  "startTime": "2026-02-04T11:11:32.896Z",
+  "lastUpdated": "2026-02-04T11:33:22.130Z",
+  "messages": [
+    {
+      "id": "98c2f592-91f4-4ada-bbb4-47d17782573a",
+      "timestamp": "2026-02-04T11:11:32.896Z",
+      "type": "user",
+      "content": "Build a blog app with Flask"
+    },
+    {
+      "id": "96ae62b1-f39d-49fe-b8ed-901f7e4774e2",
+      "timestamp": "2026-02-04T11:11:48.717Z",
+      "type": "gemini",
+      "content": "I'll create the project structure for a Flask blog.",
+      "model": "gemini-2.5-pro",
+      "tokens": {
+        "input": 6610,
+        "output": 144,
+        "cached": 0,
+        "thoughts": 242,
+        "tool": 50,
+        "total": 6996
+      },
+      "thoughts": [
+        {
+          "subject": "Beginning the Blog Build",
+          "description": "I'm initiating the Flask blog project by setting up the directory structure.",
+          "timestamp": "2026-02-04T11:11:35.981Z"
+        },
+        {
+          "subject": "Planning Architecture",
+          "description": "Considering Flask blueprints for scalability.",
+          "timestamp": "2026-02-04T11:11:36.500Z"
+        }
+      ],
+      "toolCalls": [
+        {
+          "id": "write_file-1770203501169-0a841ea3dfad7",
+          "name": "write_file",
+          "displayName": "WriteFile",
+          "description": "Write content to a file",
+          "args": {
+            "file_path": "app.py",
+            "content": "from flask import Flask\napp = Flask(__name__)"
+          },
+          "result": [
+            {
+              "functionResponse": {
+                "id": "write_file-1770203501169-0a841ea3dfad7",
+                "name": "write_file",
+                "response": {"output": "Successfully wrote file app.py"}
+              }
+            }
+          ],
+          "resultDisplay": {
+            "fileName": "app.py",
+            "filePath": "/project/app.py",
+            "isNewFile": true,
+            "newContent": "from flask import Flask\napp = Flask(__name__)",
+            "originalContent": "",
+            "fileDiff": "+from flask import Flask\n+app = Flask(__name__)",
+            "diffStat": {
+              "model_added_chars": 50,
+              "model_added_lines": 2,
+              "model_removed_chars": 0,
+              "model_removed_lines": 0,
+              "user_added_chars": 0,
+              "user_added_lines": 0,
+              "user_removed_chars": 0,
+              "user_removed_lines": 0
+            },
+            "todos": []
+          },
+          "status": "success",
+          "timestamp": "2026-02-04T11:11:48.716Z",
+          "renderOutputAsMarkdown": true
+        }
+      ]
+    },
+    {
+      "id": "gemini-002",
+      "timestamp": "2026-02-04T11:12:00.000Z",
+      "type": "gemini",
+      "content": "Now running the shell command to install dependencies.",
+      "model": "gemini-2.5-pro",
+      "tokens": {
+        "input": 1000,
+        "output": 50,
+        "cached": 500,
+        "thoughts": 0,
+        "tool": 20,
+        "total": 1070
+      },
+      "thoughts": [],
+      "toolCalls": [
+        {
+          "id": "shell-001",
+          "name": "run_shell_command",
+          "displayName": "Shell",
+          "description": "Run a shell command",
+          "args": {
+            "command": "pip install flask"
+          },
+          "result": [
+            {
+              "functionResponse": {
+                "id": "shell-001",
+                "name": "run_shell_command",
+                "response": {"output": "Successfully installed Flask-3.0.0"}
+              }
+            }
+          ],
+          "resultDisplay": "Successfully installed Flask-3.0.0",
+          "status": "success",
+          "timestamp": "2026-02-04T11:12:05.000Z",
+          "renderOutputAsMarkdown": false
+        }
+      ]
+    },
+    {
+      "id": "gemini-003",
+      "timestamp": "2026-02-04T11:13:00.000Z",
+      "type": "gemini",
+      "content": "Attempting another operation.",
+      "model": "gemini-2.5-pro",
+      "tokens": {
+        "input": 500,
+        "output": 25,
+        "cached": 0,
+        "thoughts": 0,
+        "tool": 10,
+        "total": 535
+      },
+      "thoughts": [],
+      "toolCalls": [
+        {
+          "id": "shell-002",
+          "name": "run_shell_command",
+          "displayName": "Shell",
+          "description": "Run a shell command",
+          "args": {
+            "command": "python app.py"
+          },
+          "result": [
+            {
+              "functionResponse": {
+                "id": "shell-002",
+                "name": "run_shell_command",
+                "response": {"error": "Port 5000 already in use"}
+              }
+            }
+          ],
+          "resultDisplay": {"error": "Port 5000 already in use"},
+          "status": "error",
+          "timestamp": "2026-02-04T11:13:05.000Z",
+          "renderOutputAsMarkdown": false
+        }
+      ]
+    },
+    {
+      "id": "gemini-004",
+      "timestamp": "2026-02-04T11:14:00.000Z",
+      "type": "gemini",
+      "content": "User cancelled the operation.",
+      "model": "gemini-2.5-pro",
+      "tokens": {
+        "input": 200,
+        "output": 10,
+        "cached": 0,
+        "thoughts": 0,
+        "tool": 5,
+        "total": 215
+      },
+      "thoughts": [],
+      "toolCalls": [
+        {
+          "id": "write-todos-001",
+          "name": "write_todos",
+          "displayName": "WriteTodos",
+          "description": "Write todos for tracking progress",
+          "args": {
+            "todos": [
+              {"description": "Set up database", "status": "pending"},
+              {"description": "Create models", "status": "pending"}
+            ]
+          },
+          "result": [],
+          "resultDisplay": "",
+          "status": "cancelled",
+          "timestamp": "2026-02-04T11:14:05.000Z",
+          "renderOutputAsMarkdown": false
+        }
+      ]
+    },
+    {
+      "id": "cddf9667-93d8-425f-a106-44f46eaa6472",
+      "timestamp": "2026-02-04T11:15:18.457Z",
+      "type": "error",
+      "content": "[API Error: request failed with status 429]"
+    },
+    {
+      "id": "aa954cd1-7518-46f7-931f-bcbb2b4f2007",
+      "timestamp": "2026-02-04T11:09:02.255Z",
+      "type": "info",
+      "content": "Rate limit reached, waiting 30 seconds..."
+    }
+  ]
+}

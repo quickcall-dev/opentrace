@@ -1,0 +1,59 @@
+[project]
+name = "quickcall-opentrace"
+version = "1.2.0"
+description = "Multi-CLI AI coding session tracer and normalizer"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+authors = [{name = "Sagar Sarkale", email = "sagarsarkale.work@gmail.com"}]
+keywords = ["ai", "cli", "session", "tracing", "claude", "codex", "gemini", "cursor", "observability"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Debuggers",
+    "Topic :: System :: Logging",
+]
+requires-python = ">=3.11"
+dependencies = [
+    "psycopg[binary]>=3.1.0",
+    "psycopg_pool>=3.1.0",
+]
+
+[project.scripts]
+quickcall = "opentrace.cli.traced:main"
+quickcall-daemon = "opentrace.daemon.__main__:main"
+quickcall-server = "opentrace.server.__main__:main"
+
+[project.urls]
+Repository = "https://github.com/quickcall-dev/opentrace"
+Documentation = "https://github.com/quickcall-dev/opentrace#readme"
+Issues = "https://github.com/quickcall-dev/opentrace/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.0.0",
+    "pytest-asyncio>=0.23.0",
+    "ruff>=0.15.0",
+]
+daemon = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v"
+asyncio_mode = "auto"
+
+[tool.hatch.build.targets.sdist]
+exclude = ["docs/", "tests/", "fleet/"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["opentrace"]

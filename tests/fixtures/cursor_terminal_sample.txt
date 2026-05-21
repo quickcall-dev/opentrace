@@ -1,0 +1,25 @@
+---
+pid: 79706
+cwd: /Users/test/work/opentrace/trace
+---
+❯ uv run pytest tests/ -v
+Collected 15 items
+
+tests/test_claude_transform.py::test_user_message PASSED
+tests/test_claude_transform.py::test_assistant_message PASSED
+tests/test_claude_transform.py::test_tool_call PASSED
+tests/test_claude_transform.py::test_tool_result PASSED
+
+=============== 4 passed in 0.42s ===============
+
+❯ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  modified:   opentrace/schemas/cursor/v1.py
+
+Untracked files:
+  opentrace/utils/cursor_parser.py
+
+❯

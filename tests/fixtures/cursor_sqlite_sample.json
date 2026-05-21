@@ -1,0 +1,242 @@
+{
+  "_description": "Mock SQLite data for Cursor schema testing. Represents data from globalStorage/state.vscdb, workspaceStorage/*/state.vscdb, and ai-code-tracking.db",
+
+  "globalStorage_ItemTable": {
+    "aiCodeTracking.dailyStats.v1.5.2026-02-05": {
+      "date": "2026-02-05",
+      "tabSuggestedLines": 45,
+      "tabAcceptedLines": 12,
+      "composerSuggestedLines": 234,
+      "composerAcceptedLines": 198
+    },
+    "aiCodeTracking.dailyStats.v1.5.2026-02-04": {
+      "date": "2026-02-04",
+      "tabSuggestedLines": 67,
+      "tabAcceptedLines": 23,
+      "composerSuggestedLines": 456,
+      "composerAcceptedLines": 412
+    },
+    "cursor/pendingMemories": [
+      {
+        "id": "mem-uuid-001",
+        "memory": "User prefers TypeScript over JavaScript for new projects",
+        "title": "Language preference",
+        "requestId": "req-uuid-001",
+        "composerId": "comp-uuid-001",
+        "timestamp": 1738771200000
+      },
+      {
+        "id": "mem-uuid-002",
+        "memory": "Always use uv for Python package management instead of pip",
+        "title": "Package manager preference",
+        "requestId": "req-uuid-002",
+        "composerId": "comp-uuid-002",
+        "timestamp": 1738771260000
+      }
+    ],
+    "cursor/memoriesEnabled": true,
+    "cursorai/serverConfig": {
+      "chatConfig": {
+        "fullContextTokenLimit": 30000,
+        "maxRuleLength": 100000,
+        "maxMcpTools": 100
+      },
+      "backgroundComposerConfig": {
+        "enableBackgroundAgent": true,
+        "maxWindowInWindows": 10
+      },
+      "indexingConfig": {
+        "maxConcurrentUploads": 64,
+        "absoluteMaxNumberFiles": 100000
+      }
+    },
+    "cursorAuth/cachedEmail": "user@example.com",
+    "cursorAuth/stripeMembershipType": "pro"
+  },
+
+  "workspaceStorage_ItemTable": {
+    "composer.composerData": {
+      "allComposers": [
+        {
+          "type": "head",
+          "composerId": "comp-uuid-001",
+          "createdAt": 1738684800000,
+          "lastUpdatedAt": 1738771200000,
+          "unifiedMode": "agent",
+          "forceMode": null,
+          "hasUnreadMessages": false,
+          "totalLinesAdded": 156,
+          "totalLinesRemoved": 42,
+          "hasBlockingPendingActions": false,
+          "isArchived": false,
+          "isDraft": false,
+          "isWorktree": false,
+          "isSpec": false,
+          "isProject": false,
+          "isBestOfNSubcomposer": false,
+          "numSubComposers": 0,
+          "referencedPlans": [],
+          "name": "Implement user authentication",
+          "subtitle": "Working on src/auth/",
+          "contextUsagePercent": 45.2,
+          "filesChangedCount": 5,
+          "createdOnBranch": "feat/auth"
+        },
+        {
+          "type": "head",
+          "composerId": "comp-uuid-002",
+          "createdAt": 1738598400000,
+          "lastUpdatedAt": 1738684800000,
+          "unifiedMode": "chat",
+          "forceMode": "edit",
+          "hasUnreadMessages": true,
+          "totalLinesAdded": 0,
+          "totalLinesRemoved": 0,
+          "hasBlockingPendingActions": false,
+          "isArchived": true,
+          "isDraft": true,
+          "isWorktree": false,
+          "isSpec": false,
+          "isProject": false,
+          "isBestOfNSubcomposer": false,
+          "numSubComposers": 0,
+          "referencedPlans": ["plan-001"],
+          "name": "Debug API endpoint",
+          "subtitle": "Investigating 500 errors",
+          "contextUsagePercent": 12.8,
+          "filesChangedCount": 0,
+          "createdOnBranch": "main"
+        }
+      ],
+      "selectedComposerIds": ["comp-uuid-001"],
+      "lastFocusedComposerIds": ["comp-uuid-001", "comp-uuid-002"],
+      "hasMigratedComposerData": true
+    },
+    "aiService.prompts": [
+      {
+        "text": "How do I implement JWT authentication in Python?",
+        "commandType": 1
+      },
+      {
+        "text": "Explain the difference between sync and async in this context",
+        "commandType": 1
+      }
+    ]
+  },
+
+  "ai_code_tracking_db": {
+    "ai_code_hashes": [
+      {
+        "hash": "abc123def456",
+        "source": "composer",
+        "fileExtension": ".py",
+        "fileName": "auth.py",
+        "requestId": "req-uuid-001",
+        "conversationId": "comp-uuid-001",
+        "timestamp": 1738771200000,
+        "createdAt": 1738771200000,
+        "model": "claude-sonnet-4-5-20250929"
+      },
+      {
+        "hash": "xyz789ghi012",
+        "source": "tab",
+        "fileExtension": ".ts",
+        "fileName": "utils.ts",
+        "requestId": "req-uuid-003",
+        "conversationId": null,
+        "timestamp": 1738771260000,
+        "createdAt": 1738771260000,
+        "model": null
+      }
+    ],
+    "conversation_summaries": [
+      {
+        "conversationId": "comp-uuid-001",
+        "title": "JWT Authentication Implementation",
+        "tldr": "Implemented JWT auth with refresh tokens",
+        "overview": "Created a complete JWT authentication system with access and refresh tokens, including middleware for protected routes.",
+        "summaryBullets": "[\"Added JWT token generation\", \"Created auth middleware\", \"Implemented refresh token flow\"]",
+        "model": "claude-sonnet-4-5-20250929",
+        "mode": "agent",
+        "updatedAt": 1738771200000
+      }
+    ],
+    "scored_commits": [
+      {
+        "commitHash": "a1b2c3d4e5f6",
+        "branchName": "feat/auth",
+        "scoredAt": 1738771300000
+      },
+      {
+        "commitHash": "f6e5d4c3b2a1",
+        "branchName": "main",
+        "scoredAt": 1738684900000
+      }
+    ],
+    "tracking_state": [
+      {
+        "key": "lastScoredCommit",
+        "value": "a1b2c3d4e5f6"
+      },
+      {
+        "key": "indexVersion",
+        "value": "2"
+      }
+    ]
+  },
+
+  "workspace_json": {
+    "folder": "file:///Users/testuser/projects/myapp"
+  },
+
+  "mcp_server_metadata": {
+    "serverIdentifier": "opentrace-mcp",
+    "serverName": "QuickCall MCP Server"
+  },
+
+  "mcp_tool": {
+    "name": "list_repos",
+    "description": "List GitHub repositories accessible to the authenticated user",
+    "arguments": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "description": "Maximum number of repositories to return",
+          "default": 20
+        }
+      },
+      "required": []
+    },
+    "outputSchema": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+
+  "ide_state": {
+    "recentlyViewedFiles": [
+      {
+        "relativePath": "src/auth/jwt.py",
+        "absolutePath": "/Users/testuser/projects/myapp/src/auth/jwt.py"
+      },
+      {
+        "relativePath": "tests/test_auth.py",
+        "absolutePath": "/Users/testuser/projects/myapp/tests/test_auth.py"
+      }
+    ]
+  },
+
+  "mcp_config": {
+    "mcpServers": {
+      "opentrace": {
+        "command": "uvx",
+        "args": ["opentrace-mcp"]
+      },
+      "filesystem": {
+        "command": "npx",
+        "args": ["-y", "@anthropic/mcp-filesystem"]
+      }
+    }
+  }
+}

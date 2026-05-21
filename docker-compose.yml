@@ -1,0 +1,72 @@
+services:
+  db:
+    container_name: quickcall-opentrace-db
+    image: postgres:16
+    environment:
+      POSTGRES_DB: quickcall
+      POSTGRES_USER: quickcall
+      POSTGRES_PASSWORD: quickcall
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "${DB_HOST_PORT:-15433}:5432"
+
+  server:
+    container_name: quickcall-opentrace-server
+    build:
+      context: .
+      dockerfile: opentrace/Dockerfile
+    command: python -m opentrace.server
+    ports:
+      - "${SERVER_HOST_PORT:-19777}:19777"
+    environment:
+      QUICKCALL_OPENTRACE_DSN: postgresql://quickcall:quickcall@db:5432/quickcall
+      QUICKCALL_OPENTRACE_HOST: 0.0.0.0
+      QUICKCALL_OPENTRACE_ADMIN_KEYS: ${QUICKCALL_OPENTRACE_ADMIN_KEYS:-admin_dev}
+      QUICKCALL_OPENTRACE_PUSH_KEYS: ${QUICKCALL_OPENTRACE_PUSH_KEYS:-push_dev}
+    depends_on:
+      - db
+    volumes:
+      - ./opentrace:/app/opentrace:ro
+
+  daemon:
+    container_name: quickcall-opentrace-daemon
+    build:
+      context: .
+      dockerfile: opentrace/Dockerfile
+    command: python -m opentrace.daemon
+    environment:
+      QUICKCALL_OPENTRACE_INGEST_URL: http://server:19777/ingest
+      QUICKCALL_OPENTRACE_API_KEY: ${QUICKCALL_OPENTRACE_PUSH_KEYS:-push_dev}
+      QUICKCALL_OPENTRACE_MAX_FILES: ${QUICKCALL_OPENTRACE_MAX_FILES:-0}
+    volumes:
+      - ~/.claude:/root/.claude:ro
+      - ~/.codex:/root/.codex:ro
+      - ~/.gemini:/root/.gemini:ro
+      - ~/.pi:/root/.pi:ro
+      - ~/Library/Application Support/Cursor:/root/Library/Application Support/Cursor:ro
+      # Mount home dir so the daemon can resolve git repos via subprocess
+      - ${HOME}:${HOME}:ro
+      - daemon_state:/root/.quickcall-opentrace
+    depends_on:
+      - server
+
+  frontend:
+    container_name: quickcall-opentrace-frontend
+    build: ./frontend
+    ports:
+      - "${FRONTEND_HOST_PORT:-3000}:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:${SERVER_HOST_PORT:-19777}
+    volumes:
+      - ./frontend:/app
+      - frontend_node_modules:/app/node_modules
+      - frontend_next_cache:/app/.next
+    depends_on:
+      - server
+
+volumes:
+  pgdata:
+  daemon_state:
+  frontend_node_modules:
+  frontend_next_cache:

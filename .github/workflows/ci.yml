@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: quickcall
+          POSTGRES_USER: quickcall
+          POSTGRES_PASSWORD: quickcall
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 15433:5432
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          version: "latest"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: uv sync --extra dev
+      - run: uv run pytest
+        env:
+          QUICKCALL_OPENTRACE_DSN: postgresql://quickcall:quickcall@localhost:15433/quickcall
+      - run: uv run ruff check opentrace/ tests/
+      - run: docker build -f opentrace/Dockerfile .
