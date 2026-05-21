@@ -12,6 +12,7 @@
 #   - Docker (for test Postgres)
 #   - uv (for build + clean venv)
 #   - curl
+#   - lsof (for port cleanup)
 
 set -euo pipefail
 
@@ -224,7 +225,7 @@ fi
 # 9. Verify database has schema
 # ---------------------------------------------------------------------------
 echo "9. Verifying database schema..."
-TABLE_COUNT="$(PGPASSWORD=quickcall psql -h localhost -p "$POSTGRES_PORT" -U quickcall -d quickcall -Atc "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public';" 2>/dev/null || echo 0)"
+TABLE_COUNT="$(docker exec "$CONTAINER_NAME" psql -U quickcall -d quickcall -Atc "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public';" 2>/dev/null || echo 0)"
 echo "   Tables created: $TABLE_COUNT"
 if [[ "$TABLE_COUNT" -lt 5 ]]; then
     echo "ERROR: Expected at least 5 tables, found $TABLE_COUNT"
@@ -254,7 +255,7 @@ if [[ "$HAS_SESSIONS" == true ]]; then
     echo "10. Waiting for session ingestion (10s)..."
     sleep 10
 
-    SESSION_COUNT="$(PGPASSWORD=quickcall psql -h localhost -p "$POSTGRES_PORT" -U quickcall -d quickcall -Atc "SELECT COUNT(*) FROM sessions;" 2>/dev/null || echo 0)"
+    SESSION_COUNT="$(docker exec "$CONTAINER_NAME" psql -U quickcall -d quickcall -Atc "SELECT COUNT(*) FROM sessions;" 2>/dev/null || echo 0)"
     echo "    Sessions ingested: $SESSION_COUNT"
     if [[ "$SESSION_COUNT" -gt 0 ]]; then
         echo "    ✓ Data flowing into database"
